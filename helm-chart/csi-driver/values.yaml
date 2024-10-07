@@ -5,6 +5,8 @@ apiToken: ""
 # region [Required if secretRef is not set] - Must be a Linode region. (https://api.linode.com/v4/regions)
 region: ""
 
+linodeUrl: "https://api.linode.com/v4"
+
 # (OPTIONAL) Label prefix for the Linode Block Storage volumes created by this
 # driver.
 volumeLabelPrefix: ""
