@@ -2,7 +2,9 @@ package linodeclient
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
 
@@ -34,8 +36,13 @@ type LinodeClient interface {
 }
 
 func NewLinodeClient(token, ua, apiURL string) (*linodego.Client, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{Transport: tr}
+
 	// Use linodego built-in http client which supports setting root CA cert
-	linodeClient := linodego.NewClient(nil)
+	linodeClient := linodego.NewClient(client)
 	linodeClient.SetUserAgent(ua)
 	linodeClient.SetToken(token)
 
